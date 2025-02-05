@@ -4,7 +4,7 @@ export const fetchData = async (url) => {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     if (error.response) {
       throw new Error(
         `API Error: ${error.response.status} - ${error.response.data}`

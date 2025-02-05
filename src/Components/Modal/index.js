@@ -11,7 +11,7 @@ function ModalComponent({ isOpen, onClose, children }) {
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
+          <Button data-testid="close-button" id="close-button" variant="secondary" onClick={onClose}>
             Close
           </Button>
         </Modal.Footer>

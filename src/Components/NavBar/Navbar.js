@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+// import "./styles.css";
 const NavBar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-        <div className="container-fluid">
+     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div className="container-fluid navbar-brand">
             <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
+              width="40"
+              height="40"
               viewBox="0 0 16 16"
             >
               <title>circle-red-white-t</title>
@@ -23,18 +23,7 @@ const NavBar = () => {
                 d="M13.501 6.911h-4.071v6.962h-2.922v-6.962h-4.195v-2.921h11.189v2.921z"
               ></path>
             </svg>
-            Metro Transit
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <h4>Metro Transit</h4>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -43,24 +32,30 @@ const NavBar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/nextTrips">
+                <Link className="nav-link" to="/NextTrips">
                   Next Trips
                 </Link>
               </li>
-              {/* <li classNameName="nav-item">
-                <a classNameName="nav-link" href="#">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
                   Pricing
-                </a>
+                </Link>
               </li>
-              <li classNameName="nav-item">
-                <a classNameName="nav-link" aria-disabled="true">
-                  How to Ride
-                </a>
-              </li> */}
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Schedule
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
+
     </>
   );
 };
