@@ -20,7 +20,7 @@ class ErrorBoundary extends React.Component {
     if (this.state.errorInfo) {
       return (
         <div className="card error_box">
-          <h2>Somethign went wrong, Please try again! </h2>
+          <h2>Something went wrong, Please try again! </h2>
           <div className="card-body">
             <details>
               {this.state.error && this.state.error.toString()}

@@ -56,8 +56,6 @@ describe("Test NextTrips component", () => {
       },
     ];
 
-    // const handleDirectionSelect = jest.fn(); // Mock the handler
-
     fetchData
       .mockResolvedValueOnce(mockRoutes)
       .mockResolvedValueOnce(mockDirections); // Return directions when route is selected
@@ -184,15 +182,152 @@ describe("Test NextTrips component", () => {
     expect(screen.getByText("Southbound")).toBeInTheDocument();
 
     fireEvent.change(screen.getByTestId("select-2"), { target: { value: 1 } });
-
+    
     // Ensure that stops are displayed after direction selection
     await waitFor(() => screen.findByText("Select stop"));
     expect(screen.getByText("30th Ave Station")).toBeInTheDocument();
     fireEvent.change(screen.getByTestId("select-3"), { target: { value: "30th Ave Station" } });
     await waitFor(() => {
-        expect(screen.getByRole("dialog")).toBeInTheDocument();
+        expect(screen.getByRole("dialog")).toBeInTheDocument();    
       });
-   
+  });
+  it("Modal box is opened when the value in the stops drop down is changed", async () => {
+    const mockRoutes = [
+      {
+        route_id: "901",
+        agency_id: 0,
+        route_label: "METRO Blue Line",
+      },
+    ];
+
+    const mockDirections = [
+      {
+        direction_id: 0,
+        direction_name: "Northbound",
+      },
+      {
+        direction_id: 1,
+        direction_name: "Southbound",
+      },
+    ];
+    const mockStops = [
+      {
+        place_code: "MAAM",
+        description: "Mall of America Station",
+      },
+      {
+        place_code: "30AV",
+        description: "30th Ave Station",
+      },
+      {
+        place_code: "BLCT",
+        description: "Bloomington Central Station",
+      },
+    ];
+    const mockRouteDetail = [
+      {
+        place_code: "MAAM",
+        description: "Mall of America Station",
+      },
+    ];
+    fetchData
+      .mockResolvedValueOnce(mockRoutes)
+      .mockResolvedValueOnce(mockDirections)
+      .mockResolvedValueOnce(mockStops)
+      .mockResolvedValueOnce(mockRouteDetail); // Return directions when route is selected
+
+    render(<NextTrips />);
+    // Select a route from the dropdown
+    fireEvent.change(screen.getByTestId("select-1"), {
+      target: { value: "901" },
+    });
+    await waitFor(() => screen.findByText(/METRO/));
+
+    // Ensure that directions are displayed after route selection
+    expect(screen.getByText("Southbound")).toBeInTheDocument();
+
+    fireEvent.change(screen.getByTestId("select-2"), { target: { value: 1 } });
+    
+    // Ensure that stops are displayed after direction selection
+    await waitFor(() => screen.findByText("Select stop"));
+    expect(screen.getByText("30th Ave Station")).toBeInTheDocument();
+    fireEvent.change(screen.getByTestId("select-3"), { target: { value: "30th Ave Station" } });
+    await waitFor(() => {
+        expect(screen.getByRole("dialog")).toBeInTheDocument();    
+      });
+  });
+  
+  it("Modal box is closed when the close button is clicked", async () => {
+    const mockRoutes = [
+      {
+        route_id: "901",
+        agency_id: 0,
+        route_label: "METRO Blue Line",
+      },
+    ];
+
+    const mockDirections = [
+      {
+        direction_id: 0,
+        direction_name: "Northbound",
+      },
+      {
+        direction_id: 1,
+        direction_name: "Southbound",
+      },
+    ];
+    const mockStops = [
+      {
+        place_code: "MAAM",
+        description: "Mall of America Station",
+      },
+      {
+        place_code: "30AV",
+        description: "30th Ave Station",
+      },
+      {
+        place_code: "BLCT",
+        description: "Bloomington Central Station",
+      },
+    ];
+    const mockRouteDetail = [
+      {
+        place_code: "MAAM",
+        description: "Mall of America Station",
+      },
+    ];
+    fetchData
+      .mockResolvedValueOnce(mockRoutes)
+      .mockResolvedValueOnce(mockDirections)
+      .mockResolvedValueOnce(mockStops)
+      .mockResolvedValueOnce(mockRouteDetail); // Return directions when route is selected
+
+    render(<NextTrips />);
+    const handleClose = jest.fn()
+
+    // Select a route from the dropdown
+    fireEvent.change(screen.getByTestId("select-1"), {
+      target: { value: "901" },
+    });
+    await waitFor(() => screen.findByText(/METRO/));
+
+    // Ensure that directions are displayed after route selection
+    expect(screen.getByText("Southbound")).toBeInTheDocument();
+
+    fireEvent.change(screen.getByTestId("select-2"), { target: { value: 1 } });
+    
+    // Ensure that stops are displayed after direction selection
+    await waitFor(() => screen.findByText("Select stop"));
+    expect(screen.getByText("30th Ave Station")).toBeInTheDocument();
+    fireEvent.change(screen.getByTestId("select-3"), { target: { value: "30th Ave Station" } });
+    await waitFor(() => {
+        expect(screen.getByRole("dialog")).toBeInTheDocument();    
+      });
+      await (() =>{
+        const closeButton = screen.getByText("Close")
+        fireEvent.click(closeButton)
+        expect(handleClose).toHaveBeenCalled()
+    })
   });
 });
 
