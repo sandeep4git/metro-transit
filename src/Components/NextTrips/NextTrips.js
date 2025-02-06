@@ -24,8 +24,10 @@ const NextTrips = () => {
   const [open, setOpen] = useState(false);
 
   // Modal close handler
-  const handleClose = () => setOpen(false);
-
+  const handleClose = () => {
+    setOpen(false);
+    setStop([])
+  }
   // Fetch route list from API
   const getRouteList = async () => {
     try {
